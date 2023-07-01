@@ -5,66 +5,85 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import tn.esprit.rh.achat.controllers.CategorieProduitController;
 import tn.esprit.rh.achat.entities.CategorieProduit;
-import tn.esprit.rh.achat.services.ICategorieProduitService;
+import tn.esprit.rh.achat.repositories.CategorieProduitRepository;
+import tn.esprit.rh.achat.services.CategorieProduitServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-class CategorieProduitTest {
+public class CategorieProduitTest{
 
     @Mock
-    private ICategorieProduitService categorieProduitService;
+    private CategorieProduitRepository categorieProduitRepository;
 
     @InjectMocks
-    private CategorieProduitController categorieProduitController;
+    private CategorieProduitServiceImpl categorieProduitService;
 
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    void testGetCategorieProduit() {
-        // Mock des données de test
-        List<CategorieProduit> categorieProduitList = new ArrayList<>();
-        categorieProduitList.add(new CategorieProduit(1L, "Catégorie 1","lib 1"));
-        categorieProduitList.add(new CategorieProduit(2L, "Catégorie 2","lib 2"));
+    public void testRetrieveAllCategorieProduits() {
+        List<CategorieProduit> categorieProduits = new ArrayList<>();
+        categorieProduits.add(new CategorieProduit(1L, "Catégorie 1","lib 1"));
+        categorieProduits.add(new CategorieProduit(2L, "Catégorie 2", "lib 2"));
 
-        // Définir le comportement du mock
-        when(categorieProduitService.retrieveAllCategorieProduits()).thenReturn(categorieProduitList);
+        when(categorieProduitRepository.findAll()).thenReturn(categorieProduits);
 
-        // Appeler la méthode à tester
-        List<CategorieProduit> result = categorieProduitController.getCategorieProduit();
+        List<CategorieProduit> result = categorieProduitService.retrieveAllCategorieProduits();
 
-        // Vérifier le résultat
-        assertEquals(categorieProduitList, result);
-        verify(categorieProduitService, times(1)).retrieveAllCategorieProduits();
+        assertEquals(categorieProduits, result);
     }
 
     @Test
-    void testRetrieveCategorieProduit() {
-        // Mock des données de test
-        Long categorieProduitId = 1L;
-        CategorieProduit categorieProduit = new CategorieProduit(categorieProduitId, "Catégorie 1","lib 1");
+    public void testAddCategorieProduit() {
+        CategorieProduit cp = new CategorieProduit(1L, "Catégorie 1","lib 1");
 
-        // Définir le comportement du mock
-        when(categorieProduitService.retrieveCategorieProduit(categorieProduitId)).thenReturn(categorieProduit);
+        when(categorieProduitRepository.save(cp)).thenReturn(cp);
 
-        // Appeler la méthode à tester
-        CategorieProduit result = categorieProduitController.retrieveCategorieProduit(categorieProduitId);
+        CategorieProduit result = categorieProduitService.addCategorieProduit(cp);
 
-        // Vérifier le résultat
-        assertEquals(categorieProduit, result);
-        verify(categorieProduitService, times(1)).retrieveCategorieProduit(categorieProduitId);
+        assertEquals(cp, result);
+        verify(categorieProduitRepository, times(1)).save(cp);
     }
 
-    // Écrivez des tests similaires pour les autres méthodes du contrôleur
+    @Test
+    public void testDeleteCategorieProduit() {
+        Long id = 1L;
 
-    // ...
+        categorieProduitService.deleteCategorieProduit(id);
 
+        verify(categorieProduitRepository, times(1)).deleteById(id);
+    }
+
+    @Test
+    public void testUpdateCategorieProduit() {
+        CategorieProduit cp = new CategorieProduit(1L, "Catégorie 1", "lib 1");
+
+        when(categorieProduitRepository.save(cp)).thenReturn(cp);
+
+        CategorieProduit result = categorieProduitService.updateCategorieProduit(cp);
+
+        assertEquals(cp, result);
+        verify(categorieProduitRepository, times(1)).save(cp);
+    }
+
+    @Test
+    public void testRetrieveCategorieProduit() {
+        Long id = 1L;
+        CategorieProduit cp = new CategorieProduit(id, "Catégorie 1","lib 1");
+
+        when(categorieProduitRepository.findById(id)).thenReturn(Optional.of(cp));
+
+        CategorieProduit result = categorieProduitService.retrieveCategorieProduit(id);
+
+        assertEquals(cp, result);
+    }
 }
