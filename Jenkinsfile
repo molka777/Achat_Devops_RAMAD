@@ -4,7 +4,7 @@ pipeline {
 
 
     stages {
-        stage('Récupérer le projet') {
+        stage('Get prject from GIT') {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'Amir-Ayed', credentialsId: 'd9c3df91-0beb-4636-ae2a-8d1724af1e38', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
@@ -17,21 +17,27 @@ pipeline {
             }
         }
         
-        stage('Créer le livrable') {
+        stage('Maven Clean') {
             steps {
-                sh 'mvn package'
+                sh 'mvn clean'
+            }
+        }
+
+        stage('Maven Compile'){
+            steps {
+                sh 'mvn compile -DskipTests'
             }
         }
         
-        stage('Lancer les tests unitaires') {
+        stage('Les tests unitaires') {
             steps {
-                echo "stage 1"
+                sh 'mvn test'
             }
         }
         
-        stage('Lancer le test de qualité du code') {
+        stage('SonarQube Tests') {
             steps {
-                echo "stage 2"
+                sh "sonar:sonar"
             }
         }
         
