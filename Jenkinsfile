@@ -19,7 +19,7 @@ pipeline {
         
         stage('Créer le livrable') {
             steps {
-                sh 'mvn compile'
+                sh 'mvn package'
             }
         }
         
