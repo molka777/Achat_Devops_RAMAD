@@ -2,20 +2,64 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+
+
+        stage('git') {
             steps {
-                echo 'Building..'
+                // Get some code from a GitHub repository
+                git branch: 'main', url:'https://github.com/molka777/Achat_Devops_RAMAD.git'
+
             }
+
         }
-        stage('Test') {
+         stage('Compiler') {
             steps {
-                echo 'Testing..'
+
+
+                // Run Maven on a Unix agent.
+                sh "mvn clean install"
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
+
         }
-        stage('Deploy') {
+                 stage('SonarQ ') {
             steps {
-                echo 'Deploying....'
+
+                // Run Maven on a Unix agent.
+                sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
+
         }
+            stage('package  ') {
+            steps {
+
+                // Run Maven on a Unix agent.
+                sh "mvn clean package"
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+        }
+
+                         stage('Nexus ') {
+            steps {
+
+                // Run Maven on a Unix agent.
+                sh "mvn deploy -DskipTests"
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+        }
+
+
+
     }
 }
