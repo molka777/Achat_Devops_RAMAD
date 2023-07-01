@@ -94,8 +94,8 @@
 			</plugin>
 
 		</plugins>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
 	</build>
 
-	<packaging>jar</packaging>
 
 </project>
