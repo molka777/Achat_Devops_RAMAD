@@ -43,7 +43,8 @@ pipeline {
         
         stage('Déposer le livrable sur Nexus') {
             steps {
-                sh 'mvn deploy -Dusername=admin -Dpassword=nexus'
+                sh 'mvn deploy -Dmaven.deploy.username=admin -Dmaven.deploy.password=nexus'
+'
             }
         }
         
