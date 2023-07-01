@@ -43,7 +43,7 @@ pipeline {
         
         stage('Déposer le livrable sur Nexus') {
             steps {
-                sh 'mvn deploy -P autoInstallPackage -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true'
+                sh 'mvn deploy -Dusername=admin -Dpassword=nexus'
             }
         }
         
