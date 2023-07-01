@@ -67,13 +67,6 @@ pipeline {
                     }
                 }
 
-                stage('Login') {
-                    steps{
-
-                        sh """ docker login -u "medalibm" -p "daliinfo2222" docker.io  """
-                    }
-                }
-
                stage('push to DockerHub') {
                     steps{
 
