@@ -11,17 +11,14 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Operateur implements Serializable{
+public class Operateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -29,10 +26,18 @@ public class Operateur implements Serializable{
 	private Long idOperateur;
 	private String nom;
 	private String prenom;
-	
+
 	private String password;
 	@OneToMany
 	@JsonIgnore
 	private Set<Facture> factures;
-	
+
+	public Operateur(Long idOperateur, String nom, String prenom, String password) {
+		super();
+		this.idOperateur = idOperateur;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.password = password;
+	}
+
 }
