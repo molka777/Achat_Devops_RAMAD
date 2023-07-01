@@ -46,7 +46,7 @@ private Stock stock1 = new Stock(1L,"stock1", 100, 1,null);
 private Stock stock2 = new Stock(7L,"stock2", 200, 2,null);
 
  
-@Autowired
+@MockBean
  IStockService is;
 
 

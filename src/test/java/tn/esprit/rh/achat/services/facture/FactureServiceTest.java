@@ -37,7 +37,7 @@ public class FactureServiceTest {
 	@MockBean
 	FactureRepository factureRepository;
 	
-	@Autowired
+	@MockBean
 	FactureServiceImpl factureService;
 	
 	

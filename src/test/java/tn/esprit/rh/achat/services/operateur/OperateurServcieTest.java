@@ -51,7 +51,7 @@ public class OperateurServcieTest {
 	private Operateur o1 = new Operateur(1L,"fatma","daâs","546125");
 	private Operateur o2 = new Operateur(2L,"Fatma","daâs","546125");
 	  
-	@Autowired
+	@MockBean
 	    IOperateurService os;
 	
     

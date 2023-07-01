@@ -4,6 +4,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,10 +43,10 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 public class ProduitServiceTest {
  /* test git* */
-    @Autowired
+    @MockBean
     IProduitService ps;
     
-    @Autowired
+    @MockBean
     IStockService ss;
 
     @MockBean
