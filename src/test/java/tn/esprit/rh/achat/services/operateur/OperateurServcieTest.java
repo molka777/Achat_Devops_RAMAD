@@ -39,7 +39,7 @@ import tn.esprit.rh.achat.services.IOperateurService;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
-@SpringBootTest
+@SpringBootTest(classes = OperateurServcieTest.class)
 @RunWith(SpringRunner.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
