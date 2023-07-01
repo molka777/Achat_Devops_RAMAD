@@ -43,7 +43,7 @@ pipeline {
         
         stage('Déposer le livrable sur Nexus') {
             steps {
-                echo "stage 3"
+                sh 'mvn deploy'
             }
         }
         
