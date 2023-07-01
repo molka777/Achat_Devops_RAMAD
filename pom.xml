@@ -94,7 +94,7 @@
 			</plugin>
 
 		</plugins>
-		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<testSourceDirectory>src/test/java/tn/esprit/rh/achat/services/</testSourceDirectory>
 	</build>
 
 
