@@ -7,7 +7,7 @@ pipeline {
         stage('Get prject from GIT') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'main', credentialsId: 'd9c3df91-0beb-4636-ae2a-8d1724af1e38', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
+                git branch: 'Amir-Ayed', credentialsId: 'd9c3df91-0beb-4636-ae2a-8d1724af1e38', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
             }
 
             post {
