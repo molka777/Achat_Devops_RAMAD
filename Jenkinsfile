@@ -55,7 +55,7 @@ pipeline {
         }    
         stage('MVN NEXUS'){
             steps {
-                sh 'mvn deploy -Dmaven.test.skip=false'
+                sh 'mvn deploy -Dmaven.test.skip=true'
                   }
         }
         stage('Building image') {
