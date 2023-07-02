@@ -5,37 +5,24 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import tn.esprit.rh.achat.entities.DetailFournisseur;
-import tn.esprit.rh.achat.entities.Fournisseur;
-import tn.esprit.rh.achat.repositories.DetailFournisseurRepository;
-import tn.esprit.rh.achat.repositories.FournisseurRepository;
-import tn.esprit.rh.achat.repositories.ProduitRepository;
-import tn.esprit.rh.achat.repositories.SecteurActiviteRepository;
+import tn.esprit.rh.achat.entities.Stock;
+import tn.esprit.rh.achat.repositories.StockRepository;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class FournisseurServiceImplTest {
+class StockServiceTest {
 
     @Mock
-    private FournisseurRepository fournisseurRepository;
-
-    @Mock
-    private DetailFournisseurRepository detailFournisseurRepository;
-
-    @Mock
-    private ProduitRepository produitRepository;
-
-    @Mock
-    private SecteurActiviteRepository secteurActiviteRepository;
+    private StockRepository stockRepository;
 
     @InjectMocks
-    private FournisseurServiceImpl fournisseurService;
+    private StockServiceImpl stockService;
 
     @BeforeEach
     public void setup() {
@@ -43,12 +30,12 @@ class FournisseurServiceImplTest {
     }
 
     @Test
-    void testRetrieveAllFournisseurs() {
+    void testRetrieveAllStocks() {
         // Mock the behavior of the repository
-        when(fournisseurRepository.findAll()).thenReturn(new ArrayList<>());
+        when(stockRepository.findAll()).thenReturn(new ArrayList<>());
 
         // Call the method being tested
-        List<Fournisseur> result = fournisseurService.retrieveAllFournisseurs();
+        List<Stock> result = stockService.retrieveAllStocks();
 
         // Assert the result
         assertNotNull(result);
@@ -56,123 +43,91 @@ class FournisseurServiceImplTest {
     }
 
     @Test
-    void testAddFournisseur() {
-        // Create a sample Fournisseur object
-        Fournisseur fournisseur = new Fournisseur();
-        fournisseur.setId(1L);
-        fournisseur.setNom("Test Fournisseur");
-
-        // Create a sample DetailFournisseur object
-        DetailFournisseur detailFournisseur = new DetailFournisseur();
-        detailFournisseur.setDateDebutCollaboration(new Date());
+    void testAddStock() {
+        // Create a sample Stock object
+        Stock stock = new Stock();
+        stock.setIdStock(1L);
+        stock.setLibelleStock("Test Stock");
 
         // Mock the behavior of the repository
-        when(fournisseurRepository.save(any(Fournisseur.class))).thenReturn(fournisseur);
-        when(detailFournisseurRepository.save(any(DetailFournisseur.class))).thenReturn(detailFournisseur);
+        when(stockRepository.save(any(Stock.class))).thenReturn(stock);
 
         // Call the method being tested
-        Fournisseur result = fournisseurService.addFournisseur(fournisseur);
+        Stock result = stockService.addStock(stock);
 
         // Assert the result
         assertNotNull(result);
-        assertEquals(fournisseur.getId(), result.getId());
-        assertEquals(fournisseur.getNom(), result.getNom());
+        assertEquals(stock.getIdStock(), result.getIdStock());
+        assertEquals(stock.getLibelleStock(), result.getLibelleStock());
 
-        verify(fournisseurRepository, times(1)).save(any(Fournisseur.class));
-        verify(detailFournisseurRepository, times(1)).save(any(DetailFournisseur.class));
+        verify(stockRepository, times(1)).save(any(Stock.class));
     }
 
     @Test
-    void testUpdateFournisseur() {
-        // Create a sample Fournisseur object
-        Fournisseur fournisseur = new Fournisseur();
-        fournisseur.setId(1L);
-        fournisseur.setNom("Test Fournisseur");
-
-        // Create a sample DetailFournisseur object
-        DetailFournisseur detailFournisseur = new DetailFournisseur();
-        detailFournisseur.setId(1L);
-        detailFournisseur.setDateDebutCollaboration(new Date());
-
-        fournisseur.setDetailFournisseur(detailFournisseur);
-
-        // Mock the behavior of the repository
-        when(fournisseurRepository.save(any(Fournisseur.class))).thenReturn(fournisseur);
-        when(detailFournisseurRepository.save(any(DetailFournisseur.class))).thenReturn(detailFournisseur);
+    void testDeleteStock() {
+        // Create a sample Stock ID
+        Long stockId = 1L;
 
         // Call the method being tested
-        Fournisseur result = fournisseurService.updateFournisseur(fournisseur);
-
-        // Assert the result
-        assertNotNull(result);
-        assertEquals(fournisseur.getId(), result.getId());
-        assertEquals(fournisseur.getNom(), result.getNom());
-        assertNotNull(result.getDetailFournisseur());
-        assertEquals(detailFournisseur.getId(), result.getDetailFournisseur().getId());
-
-        verify(fournisseurRepository, times(1)).save(any(Fournisseur.class));
-        verify(detailFournisseurRepository, times(1)).save(any(DetailFournisseur.class));
-    }
-
-    @Test
-    void testDeleteFournisseur() {
-        // Create a sample Fournisseur ID
-        Long fournisseurId = 1L;
-
-        // Call the method being tested
-        fournisseurService.deleteFournisseur(fournisseurId);
+        stockService.deleteStock(stockId);
 
         // Verify that the repository's deleteById method was called with the correct ID
-        verify(fournisseurRepository, times(1)).deleteById(fournisseurId);
+        verify(stockRepository, times(1)).deleteById(stockId);
     }
 
     @Test
-    void testRetrieveFournisseur() {
-        // Create a sample Fournisseur ID
-        Long fournisseurId = 1L;
-
-        // Create a sample Fournisseur object
-        Fournisseur fournisseur = new Fournisseur();
-        fournisseur.setId(fournisseurId);
-        fournisseur.setNom("Test Fournisseur");
+    void testUpdateStock() {
+        // Create a sample Stock object
+        Stock stock = new Stock();
+        stock.setIdStock(1L);
+        stock.setLibelleStock("Test Stock");
 
         // Mock the behavior of the repository
-        when(fournisseurRepository.findById(fournisseurId)).thenReturn(Optional.of(fournisseur));
+        when(stockRepository.save(any(Stock.class))).thenReturn(stock);
 
         // Call the method being tested
-        Fournisseur result = fournisseurService.retrieveFournisseur(fournisseurId);
+        Stock result = stockService.updateStock(stock);
 
         // Assert the result
         assertNotNull(result);
-        assertEquals(fournisseurId, result.getId());
-        assertEquals(fournisseur.getNom(), result.getNom());
+        assertEquals(stock.getIdStock(), result.getIdStock());
+        assertEquals(stock.getLibelleStock(), result.getLibelleStock());
+
+        verify(stockRepository, times(1)).save(any(Stock.class));
     }
 
     @Test
-    void testAssignSecteurActiviteToFournisseur() {
-        // Create sample IDs for SecteurActivite and Fournisseur
-        Long idSecteurActivite = 1L;
-        Long idFournisseur = 1L;
+    void testRetrieveStock() {
+        // Create a sample Stock ID
+        Long stockId = 1L;
 
-        // Create sample objects for SecteurActivite and Fournisseur
-        SecteurActivite secteurActivite = new SecteurActivite();
-        secteurActivite.setId(idSecteurActivite);
-
-        Fournisseur fournisseur = new Fournisseur();
-        fournisseur.setId(idFournisseur);
+        // Create a sample Stock object
+        Stock stock = new Stock();
+        stock.setIdStock(stockId);
+        stock.setLibelleStock("Test Stock");
 
         // Mock the behavior of the repository
-        when(fournisseurRepository.findById(idFournisseur)).thenReturn(Optional.of(fournisseur));
-        when(secteurActiviteRepository.findById(idSecteurActivite)).thenReturn(Optional.of(secteurActivite));
+        when(stockRepository.findById(stockId)).thenReturn(Optional.of(stock));
 
         // Call the method being tested
-        fournisseurService.assignSecteurActiviteToFournisseur(idSecteurActivite, idFournisseur);
+        Stock result = stockService.retrieveStock(stockId);
 
-        // Verify that the SecteurActivite was added to the Fournisseur's list of SecteurActivites
-        assertEquals(1, fournisseur.getSecteurActivites().size());
-        assertEquals(secteurActivite, fournisseur.getSecteurActivites().get(0));
+        // Assert the result
+        assertNotNull(result);
+        assertEquals(stockId, result.getIdStock());
+        assertEquals(stock.getLibelleStock(), result.getLibelleStock());
+    }
 
-        // Verify that the changes were saved in the repository
-        verify(fournisseurRepository, times(1)).save(fournisseur);
+    @Test
+    void testRetrieveStatusStock() {
+        // Mock the behavior of the repository
+        when(stockRepository.retrieveStatusStock()).thenReturn(new ArrayList<>());
+
+        // Call the method being tested
+        String result = stockService.retrieveStatusStock();
+
+        // Assert the result
+        assertNotNull(result);
+        assertEquals("", result);
     }
 }
