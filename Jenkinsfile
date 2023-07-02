@@ -49,7 +49,7 @@ pipeline {
         
         stage('Build de l’image (partie spring)') {
             steps {
-                echo "stage 4"
+                sh 'docker build -t ratatouka/achat:0.1 .'
             }
         }
         
