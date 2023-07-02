@@ -64,8 +64,8 @@ pipeline {
         
         stage('Lancer simultanément les images avec docker-compose') {
             steps {
-                sh'sudo chown $(whoami) ./db/data'
-                sh'sudo chgrp $(whoami) ./db/data'
+                sh'chown $(whoami) ./db/data'
+                sh'chgrp $(whoami) ./db/data'
                 sh 'docker-compose up -d'
             }
         }
