@@ -2,13 +2,15 @@ version: '3'
 services:
   mysql:
     image: mysql:latest
+    ports:
+      - 8088:8088
     environment:
       MYSQL_ROOT_PASSWORD:
       MYSQL_DATABASE: achatdb
     volumes:
       - mysql_data:/var/lib/mysql
   spring-app:
-    image: ratatouka/achat:0.91
+    image: ratatouka/achat:0.92
     ports:
       - 8089:8089
     depends_on:
