@@ -75,10 +75,6 @@ pipeline {
             }
         }
 
-         stage('Launch MySql & Spring simultaneously') {
-            steps {
-                sh 'docker-compose up -d'
-            }
-   }
+
     }
 }
