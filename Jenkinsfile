@@ -49,7 +49,9 @@ pipeline {
         
         stage('Build de l’image (partie spring)') {
             steps {
-                sh 'docker build -t ratatouka/achat:0.1 .'
+                sh 'git checkout docker-branch'
+                sh 'docker build -t ratatouka/achat:0.2 .'
+                sh 'git checkout main'
             }
         }
         
