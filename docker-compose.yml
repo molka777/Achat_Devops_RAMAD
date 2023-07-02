@@ -8,7 +8,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
   spring-app:
-    image: ratatouka/achat:0.7
+    image: ratatouka/achat:0.8
     ports:
       - 8089:8089
     depends_on:
