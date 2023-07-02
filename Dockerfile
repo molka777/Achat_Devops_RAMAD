@@ -1,6 +1,7 @@
-FROM openjdk:11
-ARG JAR_FILE=target/*.jar
-RUN apk --no-cache add curl
-RUN curl -u admin:nexus -o achat-1.0.jar "http://localhost/repository/maven-releases/tn/esprit/rh/achat/1.0/achat-1.0.jar" -L
-ENTRYPOINT ["java","-jar","/achat-1.0.jar"]
+# Utilisez une image de base qui a Java préinstallé                                                                     
+FROM openjdk:11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+# Copiez le fichier JAR généré par Maven dans le conteneur Docker                                                       
+COPY target/achat-1.0.jar /app.jar                                                                                                                                                                                                                                                                                                                                      
+# Exécutez l'application lorsque le conteneur démarre                                                                   
+CMD ["java", "-jar", "/app.jar"]
 EXPOSE 8089
