@@ -1,6 +1,5 @@
-FROM openjdk:11-jdk-alpine
-ARG JAR_FILE=target/*.jar
-RUN apk --no-cache add curl
-RUN curl -u admin:nexus -o achat-1.0.jar "http://localhost/repository/maven-releases/tn/esprit/rh/achat/1.0/achat-1.0.jar" -L
-ENTRYPOINT ["java","-jar","/achat-1.0.jar"]
-EXPOSE 8089
+FROM openjdk:11-jdk
+
+RUN curl -u admin:nexus -o /app.jar "http://localhost:8081/#browse/browse:maven-releases:tn%2Fesprit%2Frh%2Fachat%2F1.0%2Fachat-1.0.jar"
+EXPOSE 8080
+CMD ["java", "-jar", "/app.jar"]
