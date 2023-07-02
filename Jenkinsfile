@@ -49,13 +49,13 @@ pipeline {
             steps{
                 sh 'mvn sonar:sonar \
   -Dsonar.projectKey=ExamDevOps \
-  -Dsonar.host.url=http://192.168.1.21:9000 
+  -Dsonar.host.url=http://192.168.1.21:9000 \
   -Dsonar.login=dc582afcc71d2989282ac1e88fe457c6b803533f'
                  }
         }    
         stage('MVN NEXUS'){
             steps {
-                sh 'mvn deploy -DskipTests'
+                sh 'mvn deploy -Dmaven.test.skip=true'
                   }
         }
         stage('Building image') {
