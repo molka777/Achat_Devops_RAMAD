@@ -55,7 +55,7 @@ pipeline {
         
         stage('Création du livrable Spring à partir du fichier DockerFile') {
             steps {
-                echo "stage 5"
+                sh 'mvn package'
             }
         }
         
