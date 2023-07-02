@@ -50,7 +50,7 @@ pipeline {
         stage('Build de l’image (partie spring)') {
             steps {
                 sh 'git checkout Amir-Ayed'
-                sh 'docker build -t ratatouka/achat:0.99.'
+                sh 'docker build -t ratatouka/achat:0.99 .'
             }
         }
         
