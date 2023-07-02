@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
  mysql:
   image: mysql:latest
@@ -11,7 +11,7 @@ services:
   volumes:
    - /sqldb:/var/lib/mysql
  spring-app:
-  image: ratatouka/achat:0.991
+  image: ratatouka/achat:0.992
   ports:
    - 51000:8089
   depends_on:
