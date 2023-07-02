@@ -49,7 +49,7 @@ pipeline {
         
         stage('Build de l’image (partie spring)') {
             steps {
-                sh 'git checkout docker-branch'
+                sh 'git checkout Amir-Ayed'
                 sh 'docker build -t ratatouka/achat:0.2 .'
                 sh 'git checkout main'
             }
