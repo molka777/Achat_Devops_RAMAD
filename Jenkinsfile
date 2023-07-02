@@ -50,14 +50,14 @@ pipeline {
         stage('Build de l’image (partie spring)') {
             steps {
                 sh 'git checkout Amir-Ayed'
-                sh 'docker build -t ratatouka/achat:0.98 .'
+                sh 'docker build -t ratatouka/achat:0.99.'
             }
         }
         
         stage('Déposer l\'image créée sur DockerHub') {
             steps {
                 sh 'docker login -u "ratatouka" -p "Bloodytears123+" docker.io'
-                sh 'docker push ratatouka/achat:0.98'
+                sh 'docker push ratatouka/achat:0.99'
             }
         }
         
