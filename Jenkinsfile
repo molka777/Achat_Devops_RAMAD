@@ -66,7 +66,7 @@ pipeline {
             steps {
                 sh'chown $(whoami) ./db/data'
                 sh'chgrp $(whoami) ./db/data'
-                sh 'docker-compose up -d'
+                sh 'docker-compose up'
             }
         }
     }
