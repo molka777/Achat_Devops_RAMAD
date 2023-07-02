@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: achatdb
     volumes:
-      - mysql_data:/var/lib/mysql
+      - /sqldb:/var/lib/mysql
   spring-app:
     image: ratatouka/achat:0.94
     ports:
