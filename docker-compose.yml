@@ -3,12 +3,12 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: 
+      MYSQL_ROOT_PASSWORD:
       MYSQL_DATABASE: achatdb
     volumes:
       - mysql_data:/var/lib/mysql
   spring-app:
-    image: ratatouka/achat:0.9
+    image: ratatouka/achat:0.91
     ports:
       - 8089:8089
     depends_on:
