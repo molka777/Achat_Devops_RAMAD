@@ -49,19 +49,15 @@ pipeline {
         
         stage('Build de l’image (partie spring)') {
             steps {
-                sh 'docker build -t ratatouka/achat:0.2 .'
-            }
-        }
-        
-        stage('Création du livrable Spring à partir du fichier DockerFile') {
-            steps {
-                sh 'mvn package'
+                sh 'git checkout Amir-Ayed'
+                sh 'docker build -t ratatouka/achat:0.3 .'
             }
         }
         
         stage('Déposer l\'image créée sur DockerHub') {
             steps {
-                echo "stage 6"
+                sh 'docker login -u "ratatouka" -p "Bloodytears123+" docker.io'
+                sh 'docker push ratatouka/achat:0.3'
             }
         }
         
