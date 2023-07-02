@@ -24,13 +24,20 @@ pipeline {
             steps {
                 sh "mvn install"
                   }
-        }       
+        }     
+
+        stage('MVN Compile'){
+            steps {
+                sh "mvn compile"
+                  }
+        }           
         
         stage('MVN Test'){
             steps {
                 sh "mvn test"
                   }
-        }          
+        }   
+       
         
         stage('MVN Package'){
             steps {
@@ -41,9 +48,9 @@ pipeline {
         stage('MVN SONARQUBE'){
             steps{
                 sh 'mvn sonar:sonar \
-  -Dsonar.projectKey=JenkinsExamProject \
-  -Dsonar.host.url=http://192.168.1.120:9000 \
-  -Dsonar.login=47e5a816defea731387d72ad9707363b75676b29'
+  -Dsonar.projectKey=ExamDevOps \
+  -Dsonar.host.url=http://192.168.163.67:9000 \
+  -Dsonar.login=dc582afcc71d2989282ac1e88fe457c6b803533f'
                  }
         }    
         stage('MVN NEXUS'){
@@ -72,7 +79,7 @@ pipeline {
                 sh "docker rmi $registry:$BUILD_NUMBER"
             } 
 
-            
+
         }
    }
 }
