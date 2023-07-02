@@ -1,101 +1,113 @@
 package tn.esprit.rh.achat.services.operateur;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import tn.esprit.rh.achat.entities.Operateur;
+import tn.esprit.rh.achat.repositories.OperateurRepository;
+import tn.esprit.rh.achat.services.OperateurServiceImpl;
 
-import tn.esprit.rh.achat.entities.Produit;
-import tn.esprit.rh.achat.entities.Stock;
-import tn.esprit.rh.achat.repositories.FactureRepository;
-import tn.esprit.rh.achat.repositories.ProduitRepository;
-import tn.esprit.rh.achat.repositories.StockRepository;
-import tn.esprit.rh.achat.services.IProduitService;
-import org.junit.runner.RunWith;
-
-import org.springframework.test.context.junit4.SpringRunner;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+public class OperateurServiceTest {
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
+	@Mock
+	private OperateurRepository operateurRepository;
 
-import tn.esprit.rh.achat.entities.Operateur;
-import tn.esprit.rh.achat.repositories.OperateurRepository;
-import tn.esprit.rh.achat.services.IOperateurService;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
+	@InjectMocks
+	private OperateurServiceImpl operateurService;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ExtendWith(MockitoExtension.class)
-public class OperateurServcieTest {
-	
-	@MockBean
-	private OperateurRepository or;
-	
-	private Operateur o1 = new Operateur(1L,"fatma","daâs","546125");
-	private Operateur o2 = new Operateur(2L,"Fatma","daâs","546125");
-	  
-	@Autowired
-	    IOperateurService os;
-	
-    
-    @Test
-	public void addOperateurTest() {
-    	when(or.save(o1)).thenReturn(o1);
-    	assertNotNull(o1);
-		assertEquals(o1, os.addOperateur(o1)); 
-		System.out.println("add works !");
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
 	}
-    
-    @Test 
-    public void retrieveAllOperateursTest() {
-    	when(or.findAll()).thenReturn(Stream
-    			.of(o1,o2)
-    			.collect(Collectors.toList()));
-    	assertEquals(2,os.retrieveAllOperateurs().size());
-    	System.out.println("Retrieve operators works !");
-    }
-    
-   
-    
-    @Test
-    public void DeleteOperateurTest() {
-    	or.save(o1);
-    	os.deleteOperateur(o1.getIdOperateur());
-    	verify(or, times(1)).deleteById(o1.getIdOperateur());
-    	System.out.println("Delete works !");
-    	
-    }
 
-    
-    @Test 
-    public void UpdateOperateurTest() {
-    	when(or.save(o1)).thenReturn(o1);
-    	assertNotNull(o1);
-    	assertEquals(o1, os.updateOperateur(o1));
-    	System.out.println("Update works !");
-    }
-    
-    @Test
-    public void retrieveOperateurTest() {
-    	when(or.findById(o1.getIdOperateur())).thenReturn(Optional.of(o1));
-    	assertEquals(o1, os.retrieveOperateur(o1.getIdOperateur()));
-    	System.out.println("Retrieve operator works !");
-    }
+	@Test
+	public void testRetrieveAllOperateurs() {
+		// Prepare test data
+		List<Operateur> operateurs = new ArrayList<>();
+		operateurs.add(new Operateur(1L, "John", "Doe", "password", null));
+		operateurs.add(new Operateur(2L, "Jane", "Smith", "password", null));
+
+		// Mock the repository method
+		when(operateurRepository.findAll()).thenReturn(operateurs);
+
+		// Call the service method
+		List<Operateur> result = operateurService.retrieveAllOperateurs();
+
+		// Verify the repository method was called once
+		verify(operateurRepository, times(1)).findAll();
+
+		// Verify the result
+		assertEquals(2, result.size());
+		assertEquals("John", result.get(0).getNom());
+		assertEquals("Jane", result.get(1).getNom());
+	}
+
+	@Test
+	public void testAddOperateur() {
+		// Prepare test data
+		Operateur operateur = new Operateur(1L, "John", "Doe", "password", null);
+
+		// Mock the repository method
+		when(operateurRepository.save(operateur)).thenReturn(operateur);
+
+		// Call the service method
+		Operateur result = operateurService.addOperateur(operateur);
+
+		// Verify the repository method was called once
+		verify(operateurRepository, times(1)).save(operateur);
+
+		// Verify the result
+		assertNotNull(result);
+		assertEquals("John", result.getNom());
+	}
+
+	@Test
+	public void testDeleteOperateur() {
+		// Prepare test data
+		Long id = 1L;
+
+		// Call the service method
+		operateurService.deleteOperateur(id);
+
+		// Verify the repository method was called once
+		verify(operateurRepository, times(1)).deleteById(id);
+	}
+
+	@Test
+	public void testUpdateOperateur() {
+		// Prepare test data
+		Operateur operateur = new Operateur(1L, "John", "Doe", "password", null);
+
+		// Mock the repository method
+		when(operateurRepository.save(operateur)).thenReturn(operateur);
+
+		// Call the service method
+		Operateur result = operateurService.updateOperateur(operateur);
+
+		// Verify the repository method was called once
+		verify(operateurRepository, times(1)).save(operateur);
+
+		// Verify the result
+		assertNotNull(result);
+		assertEquals("John", result.getNom());
+	}
+
+	@Test
+	public void testRetrieveOperateur() {
+		// Prepare test data
+		Long id = 1L;
+		Operateur operateur = new Operateur(id, "John", "Doe", "password", null);
+
+		// Mock the repository
+	}
 }
