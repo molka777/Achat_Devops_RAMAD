@@ -50,33 +50,20 @@ pipeline {
         stage('Build de l’image (partie spring)') {
             steps {
                 sh 'git checkout Amir-Ayed'
-                sh 'docker build -t ratatouka/achat:0.3 .'
+                sh 'docker build -t ratatouka/achat:0.4 .'
             }
         }
         
         stage('Déposer l\'image créée sur DockerHub') {
             steps {
                 sh 'docker login -u "ratatouka" -p "Bloodytears123+" docker.io'
-                sh 'docker push ratatouka/achat:0.3'
+                sh 'docker push ratatouka/achat:0.4'
             }
         }
         
         stage('Lancer simultanément les images avec docker-compose') {
             steps {
-                sh 'git checkout Amir-Ayed'
-                sh 'dockercompose up -d'
-            }
-        }
-        
-        stage('Tester les services avec Postman ou Swagger') {
-            steps {
-                echo "stage 8"
-            }
-        }
-        
-        stage('Superviser les outils avec Prometheus et Grafana') {
-            steps {
-                echo "stage 9"
+                sh 'sudo dockercompose up -d'
             }
         }
     }
