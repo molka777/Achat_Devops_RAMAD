@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "moetazkallali/exam"
+        registry = "rchidbaccouchi/exam"
         registryCredential = 'dockerhub_id'
         dockerImage = 'exam'
     }
@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo "Getting Project from Git";
                 sh "rm -rf Exam"
-                sh "git clone https://github.com/moetazkallali/Exam.git"
+                sh "git clone https://github.com/molka777/Achat_Devops_RAMAD.git"
                   }
             }
             
