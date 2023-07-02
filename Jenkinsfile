@@ -63,7 +63,8 @@ pipeline {
         
         stage('Lancer simultanément les images avec docker-compose') {
             steps {
-                echo "stage 7"
+                sh 'git checkout Amir-Ayed'
+                sh 'dockercompose up -d'
             }
         }
         
