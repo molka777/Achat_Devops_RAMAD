@@ -15,7 +15,7 @@ services:
      - /home/vagrant/mysql/data:/var/lib/mysql
 
   spring_app:
-    image: ratatouka/achat:0.4
+    image: ratatouka/achat:0.6
     container_name: achatspring
     restart: on-failure
     environment:
@@ -25,11 +25,3 @@ services:
     depends_on:
      - mysqldb
 
-  angular_app:
-    image: ratatouka/achatfront:0.4
-    container_name: achatangular
-    restart: on-failure
-    ports:
-     - 4200:80
-    depends_on:
-     - spring_app
