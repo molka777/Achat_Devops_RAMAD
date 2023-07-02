@@ -1,4 +1,4 @@
-package produit;
+package tn.esprit.rh.achat.services.produit;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
