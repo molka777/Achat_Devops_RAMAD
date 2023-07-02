@@ -64,8 +64,7 @@ pipeline {
         
         stage('Lancer simultanément les images avec docker-compose') {
             steps {
-                sh'chown $(whoami) ./db/data'
-                sh'chgrp $(whoami) ./db/data'
+                echo '$(whoami)'
                 sh 'docker-compose up'
             }
         }
