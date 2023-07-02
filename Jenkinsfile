@@ -1,8 +1,8 @@
 pipeline {
     environment {
-        registry = "rchidbaccouchi/exam"
+        registry = "rchidbaccouchi/examdevops"
         registryCredential = 'dockerhub_id'
-        dockerImage = 'exam'
+        dockerImage = 'examdevops'
     }
     agent any
     stages {
@@ -58,7 +58,7 @@ pipeline {
                 sh 'mvn deploy -Dmaven.test.skip=true'
                   }
         }
-        stage('Building our image') {
+        stage('Building image') {
             steps {
                 script {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -73,13 +73,6 @@ pipeline {
                     }
                 }
             }
-        }
-        stage('Cleaning up') {
-            steps {
-                sh "docker rmi $registry:$BUILD_NUMBER"
-            } 
-
-
         }
    }
 }
