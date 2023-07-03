@@ -14,6 +14,7 @@ services:
  spring-app:
   container_name: spring_back
   image: ratatouka/achat:latest
+  restart: always
   ports:
    - 8089:8089
   depends_on:
