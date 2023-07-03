@@ -81,6 +81,15 @@ pipeline {
             }
    }
 
+   post {
+    always {
+      emailext body: "${currentBuild.currentResult}", 
+               subject: "Jenkins Build ${currentBuild.currentResult}: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+               to: "rchid.baccouchi@esprit.tn",
+               from: "rchid.baccouchi@esprit.tn"
+    }
+  }
+
 
     }
 }
