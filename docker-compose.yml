@@ -13,7 +13,7 @@ services:
  spring-app:
   image: molka777/achat:latest
   ports:
-   - 51000:8089
+   - 8089:8089
   depends_on:
    - mysql
   environment:
