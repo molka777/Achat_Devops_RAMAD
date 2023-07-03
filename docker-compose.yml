@@ -11,7 +11,7 @@ services:
   volumes:
    - mysql-data:/var/lib/mysql
  spring-app:
-  image: molka777/achat:latest
+  image: molka777/achat:10
   ports:
    - 8089:8089
   depends_on:
