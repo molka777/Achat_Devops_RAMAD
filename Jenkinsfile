@@ -55,4 +55,13 @@ pipeline {
             }
         }
     }
+    post {
+    always {
+      // Send email regardless of build result
+      emailext body: "${currentBuild.currentResult}", // Use ${currentBuild.currentResult} to get the build result
+               subject: "Jenkins Build ${currentBuild.currentResult}: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+               to: "molkallaniii@gmail.com",
+               from: "molkallaniii@gmail.com"
+    }
+  }
 }
