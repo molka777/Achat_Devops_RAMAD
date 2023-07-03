@@ -51,8 +51,6 @@ pipeline {
         
         stage('Build de l’image (partie spring)') {
             steps {
-                sh 'git checkout Amir-Ayed'
-                git branch: 'Amir-Ayed', credentialsId: 'd9c3df91-0beb-4636-ae2a-8d1724af1e38', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
                 sh 'docker build -t ratatouka/achat:latest .'
             }
         }
@@ -66,6 +64,8 @@ pipeline {
         
         stage('Lancer simultanément les images avec docker-compose') {
             steps {
+                sh 'git checkout Amir-Ayed'
+                git branch: 'Amir-Ayed', credentialsId: 'd9c3df91-0beb-4636-ae2a-8d1724af1e38', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
                 sh 'docker-compose up -d'
             }
         }
