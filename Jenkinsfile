@@ -15,27 +15,20 @@ pipeline {
          stage('Compiler') {
             steps {
 
-
-                // Run Maven on a Unix agent.
                 sh "mvn compile"
 
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
 
         }
          stage('mvn test unitaire  ') {
                     steps {
 
-                        // Run Maven on a Unix agent.
                         sh "mvn test"
 
-                        // To run Maven on a Windows agent, use
-                        // bat "mvn -Dmaven.test.failure.ignore=true clean package"
                     }
 
                 }
-                 stage('SonarQ ') {
+                 stage('test with SonarQ ') {
             steps {
 
                 // Run Maven on a Unix agent.
@@ -46,14 +39,16 @@ pipeline {
             }
 
         }
-                         stage('Nexus ') {
+                stage('mvn package -DskipTests'){
+            steps {
+                sh "mvn package"
+                  }
+        } 
+                         stage('Upload to Nexus ') {
             steps {
 
-                // Run Maven on a Unix agent.
                 sh "mvn deploy -DskipTests"
 
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
 
         }
