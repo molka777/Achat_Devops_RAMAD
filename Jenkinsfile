@@ -45,7 +45,7 @@ pipeline {
 
         stage('Build Image (spring)') {
             steps {
-                sh 'docker build -t AmineAskri/achat:latest .'
+                sh 'docker build -t damino15/achat:latest .'
             }
         }
     }
