@@ -50,7 +50,7 @@ pipeline {
                 sh 'mvn sonar:sonar \
   -Dsonar.projectKey=ExamDevOps \
   -Dsonar.host.url=http://192.168.163.67:9000 \
-  -Dsonar.login=0d331ebf53aeb79e49ccf6129bf1936cbfe569b0'
+  -Dsonar.login=aa173785557cd7b2595a568c6e3a1553322fb77a'
                  }
         }    
         stage('MVN NEXUS'){
@@ -74,7 +74,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Launch MySql & Spring simultaneously') {
             steps {
                 sh 'docker-compose up -d'
