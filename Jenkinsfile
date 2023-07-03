@@ -49,7 +49,7 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
-         stage('Docker-compose logsss') {
+         stage('Docker-compose logs') {
             steps {
                 sh 'docker-compose logs'
             }
