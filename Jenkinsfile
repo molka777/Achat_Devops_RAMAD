@@ -43,7 +43,7 @@ pipeline {
         
         stage('Déposer le livrable sur Nexus') {
             steps {
-                sh 'mvn deploy -DskipTests'
+                sh 'mvn package -DskipTests'
             }
         }
         
