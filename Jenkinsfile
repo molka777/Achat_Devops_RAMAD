@@ -60,6 +60,7 @@ pipeline {
             stage('Build Docker Image') {
                     steps {
                         script {
+                                git branch: 'Dali-Boumnijel', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
                                 sh """ docker build -t medalibm/achat ."""
 
                         }
@@ -75,7 +76,6 @@ pipeline {
                 }
                  stage('Docker-compose up -d ') {
                     steps{
-                        git branch: 'Dali-Boumnijel', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
                         sh 'docker-compose down'
                         sh 'docker-compose up -d'
                     }
