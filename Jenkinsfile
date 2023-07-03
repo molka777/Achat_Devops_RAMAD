@@ -13,7 +13,7 @@ pipeline {
                 sh 'mvn sonar:sonar -Dsonar.projectKey=Molka-Achat -Dsonar.host.url=http://192.168.43.54:9000 -Dsonar.login=dc5819c69545a39e505a3f130f972b9de34b2168'
             }
         }
-        stage('Build and Test') {
+         stage('Build and Test') {
             steps {
                 sh 'mvn clean compile test'
             }
@@ -28,11 +28,7 @@ pipeline {
                 sh 'mvn install -DskipTests'
             }
         }
-        stage('SonarQube Scan') {
-            steps {
-                sh 'mvn sonar:sonar -Dsonar.projectKey=Molka-Achat -Dsonar.host.url=http://192.168.43.54:9000 -Dsonar.login=dc5819c69545a39e505a3f130f972b9de34b2168'
-            }
-        }
+        
         stage('NEXUS') {
             steps {
                 sh 'mvn deploy -DskipTests'
