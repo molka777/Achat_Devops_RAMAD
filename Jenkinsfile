@@ -42,5 +42,11 @@ pipeline {
                 sh "mvn deploy -DskipTests"
             }
         }
+
+        stage('Build Image (spring)') {
+            steps {
+                sh 'docker build -t AmineAskri/achat:latest .'
+            }
+        }
     }
 }
