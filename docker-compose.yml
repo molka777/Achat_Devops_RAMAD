@@ -18,8 +18,7 @@ services:
   depends_on:
    - mysql
   environment:
-   MYSQL_HOST: mysqldb
-   SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/achatdb
+   SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/achatdb
    SPRING_DATASOURCE_USERNAME: root
    SPRING_DATASOURCE_PASSWORD: root
 volumes:
