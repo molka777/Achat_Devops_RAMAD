@@ -7,7 +7,7 @@ pipeline {
         stage('Get prject from GIT') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'Amir-Ayed', credentialsId: 'd9c3df91-0beb-4636-ae2a-8d1724af1e38', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
+                git branch: 'main', credentialsId: 'd9c3df91-0beb-4636-ae2a-8d1724af1e38', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
             }
 
             post {
@@ -43,43 +43,29 @@ pipeline {
         
         stage('Déposer le livrable sur Nexus') {
             steps {
+                sh 'mvn package -DskipTests'
                 sh 'mvn deploy -DskipTests'
             }
         }
         
         stage('Build de l’image (partie spring)') {
             steps {
-                echo "stage 4"
-            }
-        }
-        
-        stage('Création du livrable Spring à partir du fichier DockerFile') {
-            steps {
-                echo "stage 5"
+                sh 'git checkout Amir-Ayed'
+                git branch: 'Amir-Ayed', credentialsId: 'd9c3df91-0beb-4636-ae2a-8d1724af1e38', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
+                sh 'docker build -t ratatouka/achat:latest .'
             }
         }
         
         stage('Déposer l\'image créée sur DockerHub') {
             steps {
-                echo "stage 6"
+                sh 'docker login -u "ratatouka" -p "Bloodytears123+" docker.io'
+                sh 'docker push ratatouka/achat:latest'
             }
         }
         
         stage('Lancer simultanément les images avec docker-compose') {
             steps {
-                echo "stage 7"
-            }
-        }
-        
-        stage('Tester les services avec Postman ou Swagger') {
-            steps {
-                echo "stage 8"
-            }
-        }
-        
-        stage('Superviser les outils avec Prometheus et Grafana') {
-            steps {
-                echo "stage 9"
+                sh 'docker-compose up -d'
             }
         }
     }
