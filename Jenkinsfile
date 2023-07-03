@@ -64,7 +64,7 @@ pipeline {
         
         stage('Lancer simultanément les images avec docker-compose') {
             steps {
-                sh 'docker-compose up'
+                sh 'docker-compose up -d'
             }
         }
     }
