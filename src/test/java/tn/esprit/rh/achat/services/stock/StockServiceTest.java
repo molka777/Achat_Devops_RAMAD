@@ -47,7 +47,7 @@ class StockServiceTest {
         // Create a sample Stock object
         Stock stock = new Stock();
         stock.setIdStock(1L);
-        stock.setLibelleStock("Test Stock");
+        stock.setLibelleStock("Test Stock1");
 
         // Mock the behavior of the repository
         when(stockRepository.save(any(Stock.class))).thenReturn(stock);
