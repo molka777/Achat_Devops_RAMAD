@@ -64,7 +64,6 @@ pipeline {
         
         stage('Lancer simultanément les images avec docker-compose') {
             steps {
-                sh 'whoami'
                 sh 'docker-compose up'
             }
         }
