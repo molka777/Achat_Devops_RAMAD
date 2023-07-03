@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main', 
-                url: 'https://github.com/molka777/Achat_Devops_RAMAD-copie.git'
+                url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
                
             }
         }
