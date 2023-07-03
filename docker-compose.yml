@@ -10,7 +10,7 @@ services:
    MYSQL_DATABASE: achatdb
   volumes:
    - ./data-db:/var/lib/mysql:rw
-  user: mysql
+  user: jenkins
  spring-app:
   image: ratatouka/achat:latest
   ports:
