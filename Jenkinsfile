@@ -44,7 +44,6 @@ pipeline {
         stage('Déposer le livrable sur Nexus') {
             steps {
                 sh 'mvn package -DskipTests'
-                sh 'mvn install'
                 sh 'mvn deploy -DskipTests'
             }
         }
