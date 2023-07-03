@@ -9,7 +9,7 @@ services:
    MYSQL_ROOT_PASSWORD: root
    MYSQL_DATABASE: achatdb
   volumes:
-   - ./data-db:/var/lib/mysql:rw
+   - /data-db:/var/lib/mysql:rw
   user: jenkins
  spring-app:
   image: ratatouka/achat:latest
