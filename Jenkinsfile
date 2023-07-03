@@ -49,4 +49,14 @@ pipeline {
             }
         }
     }
+
+      post {
+    always {
+      // Send email regardless of build result
+      emailext body: "${currentBuild.currentResult}",
+               subject: "Jenkins Build ${currentBuild.currentResult}: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+               to: "mohamedamine.askri@esprit.tn",
+               from: "mohamedamine.askri@esprit.tn"
+            }
+     }
 }
