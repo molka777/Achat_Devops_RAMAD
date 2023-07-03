@@ -21,6 +21,7 @@ import lombok.Setter;
 public class SecteurActivite implements Serializable{
 	/**
 	 * 
+	 * Hello
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
