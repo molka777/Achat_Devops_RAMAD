@@ -4,4 +4,4 @@ RUN curl -u admin:nexus -o /app.jar "http://192.168.43.54:8081/#browse/browse:ma
 
 EXPOSE 8089
 
-CMD ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java","-jar","/achat-1.0.jar"]
