@@ -62,20 +62,23 @@ pipeline {
                         script {
                                 sh """ docker build -t medalibm/achat ."""
 
-
                         }
                     }
                 }
 
                stage('push to DockerHub') {
                     steps{
-
+                        sh 'docker login -u "medalibm" -p "daliinfo2222" docker.io'
                         sh """ docker push  medalibm/achat """
 
                     }
                 }
-
-
-
+                 stage('Docker-compose up -d ') {
+                    steps{
+                        git branch: 'Dali-Boumnijel', url: 'https://github.com/molka777/Achat_Devops_RAMAD.git'
+                        sh 'docker-compose down'
+                        sh 'docker-compose up -d'
+                    }
+                }
     }
 }
