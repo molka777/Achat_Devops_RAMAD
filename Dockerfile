@@ -12,4 +12,4 @@ RUN curl -u admin:nexus -o /app.jar "http://192.168.56.20:8081/#browse/browse:ma
 
 EXPOSE 8089
 
-CMD ["java", "-jar", "my-project-1.0.0.jar"]
+CMD ["java", "-jar", "/app.jar"]
