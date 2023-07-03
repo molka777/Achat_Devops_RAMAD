@@ -39,9 +39,9 @@ pipeline {
             }
 
         }
-                stage('mvn package -DskipTests'){
+                stage('mvn package '){
             steps {
-                sh "mvn package"
+                sh "mvn package -DskipTests"
                   }
         } 
                          stage('Upload to Nexus ') {
